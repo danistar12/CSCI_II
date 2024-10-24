@@ -1,2 +1,3 @@
 # CSCI_II
-This is for Computer Science II 
+//This is a repository for Computer Science II //
+Using C++ for coding 
