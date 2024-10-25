@@ -46,10 +46,10 @@ int main()
     string color;
 
     //prompts user for input//
-    length = get_validated_int("What is the length of your CuBe?? ");
-    width = get_validated_int("What is the width of your cUbE?? ");
-    height = get_validated_int("What is the height of your cube?? ");
-    color = get_validated_str("What color is your cube?!? ");
+    length = get_validated_int("What is the length of your Cube?? ");
+    width = get_validated_int("What is the width of your Cube?? ");
+    height = get_validated_int("What is the height of your Cube?? ");
+    color = get_validated_str("What color is your Cube?!? ");
 
     //create the Cube object//
     Cube my_cube(length, width, height, color);
@@ -57,17 +57,17 @@ int main()
     char update;
     do {
         //display the cubes details//
-        cout << "Your cube's dimensions:"<< endl;
+        cout << "Your Cube's dimensions:"<< endl;
         cout << "Length: " << my_cube.get_length() << endl;
         cout << "Width: " << my_cube.get_width() <<endl;
         cout << "Height: " << my_cube.get_height()<<endl;
         cout << "Color: " << my_cube.get_color()<<endl;
         cout << "Volume: " << my_cube.calculate_volume()<<endl;
 
-        cout << "Would you like to update the cube's attributes? (y/n): ";
+        cout << "\nWould you like to update the Cube's attributes? (y/n): ";
         cin >> update;
         if (update=='y' || update == 'Y'){
-            cout << "\nUpdate your cube attributes: "<< endl;
+            cout << "Update your Cube's attributes: "<< endl;
             my_cube.set_length(get_validated_int("Length: "));
             my_cube.set_width(get_validated_int("Width: "));
             my_cube.set_height(get_validated_int("Height: "));
