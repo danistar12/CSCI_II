@@ -9,6 +9,7 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "xstring": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "utility": "cpp"
     }
 }
