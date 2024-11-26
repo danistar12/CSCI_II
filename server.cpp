@@ -1,3 +1,9 @@
+////////////////////////////////////////////////////////////////////////////////
+//#  Program name: server.cpp                                                //
+//#  Author: Danielle Lloyd                                                 //
+//#  Date last updated: 11/26/2024                                         // 
+//#  Purpose: Creates a connection for the client/outputs full state name //
+///////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <unordered_map>
 #include <string>

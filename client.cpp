@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////////////////
+//#  Program name: client.cpp                                       //
+//#  Author: Danielle Lloyd                                        //
+//#  Date last updated: 11/26/2024                                // 
+//#  Purpose: Creates a connection to the server and inputs state //
+////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <string>
 #include <winsock2.h>
