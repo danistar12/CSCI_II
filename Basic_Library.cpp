@@ -3,47 +3,71 @@
 #include <vector>
 #include <sstream>
 
-// Base class for library items
+class User {
+private:
+    std::string name;
+    int userId;
+
+public:
+    User(const std::string &n, int id) : name(n), userId(id) {}
+
+    std::string getName() const { return name; }
+    int getUserId() const { return userId; }
+};
+
+class Staff : public User {
+public:
+    Staff(const std::string &n, int id) : User(n, id) {}
+};
 class LibraryItem {
-protected:
+private:
     std::string title;
     std::string description;
     std::string genre;
     double price;
+    bool checkedOut;
+    int checkedOutBy; // User ID of the person who checked out the item
 
 public:
     LibraryItem(const std::string &t, const std::string &d, const std::string &g, double p)
-        : title(t), description(d), genre(g), price(p) {}
+        : title(t), description(d), genre(g), price(p), checkedOut(false), checkedOutBy(-1) {}
 
-    virtual std::string toString() const {
-        std::ostringstream oss;
-        oss << "Title: " << title << "\nDescription: " << description << "\nGenre: " << genre << "\nPrice: $" << price;
-        return oss.str();
+    std::string getTitle() const { return title; }
+    std::string getDescription() const { return description; }
+    std::string getGenre() const { return genre; }
+    double getPrice() const { return price; }
+    bool isCheckedOut() const { return checkedOut; }
+    int getCheckedOutBy() const { return checkedOutBy; }
+
+    void checkOut(int userId) {
+        if (!checkedOut) {
+            checkedOut = true;
+            checkedOutBy = userId;
+        }
     }
 
-    virtual ~LibraryItem() {}
+    void checkIn() {
+        if (checkedOut) {
+            checkedOut = false;
+            checkedOutBy = -1;
+        }
+    }
 };
-
-// Derived class for books
 class Book : public LibraryItem {
 private:
-    std::string ISBN;
+    std::string isbn;
     std::string author;
     std::string publisher;
 
 public:
-    Book(const std::string &t, const std::string &d, const std::string &g, double p,
-         const std::string &isbn, const std::string &a, const std::string &pub)
-        : LibraryItem(t, d, g, p), ISBN(isbn), author(a), publisher(pub) {}
+    Book(const std::string &t, const std::string &d, const std::string &g, double p, const std::string &i, const std::string &a, const std::string &pub)
+        : LibraryItem(t, d, g, p), isbn(i), author(a), publisher(pub) {}
 
-    std::string toString() const override {
-        std::ostringstream oss;
-        oss << LibraryItem::toString() << "\nISBN: " << ISBN << "\nAuthor: " << author << "\nPublisher: " << publisher;
-        return oss.str();
-    }
+    std::string getIsbn() const { return isbn; }
+    std::string getAuthor() const { return author; }
+    std::string getPublisher() const { return publisher; }
 };
 
-// Derived class for music
 class Music : public LibraryItem {
 private:
     std::string artist;
@@ -51,18 +75,14 @@ private:
     int releaseYear;
 
 public:
-    Music(const std::string &t, const std::string &d, const std::string &g, double p,
-          const std::string &a, const std::string &al, int ry)
-        : LibraryItem(t, d, g, p), artist(a), album(al), releaseYear(ry) {}
+    Music(const std::string &t, const std::string &d, const std::string &g, double p, const std::string &art, const std::string &alb, int year)
+        : LibraryItem(t, d, g, p), artist(art), album(alb), releaseYear(year) {}
 
-    std::string toString() const override {
-        std::ostringstream oss;
-        oss << LibraryItem::toString() << "\nArtist: " << artist << "\nAlbum: " << album << "\nRelease Year: " << releaseYear;
-        return oss.str();
-    }
+    std::string getArtist() const { return artist; }
+    std::string getAlbum() const { return album; }
+    int getReleaseYear() const { return releaseYear; }
 };
 
-// Derived class for movies
 class Movie : public LibraryItem {
 private:
     std::string director;
@@ -70,134 +90,125 @@ private:
     int releaseYear;
 
 public:
-    Movie(const std::string &t, const std::string &d, const std::string &g, double p,
-          const std::string &dir, int dur, int ry)
-        : LibraryItem(t, d, g, p), director(dir), duration(dur), releaseYear(ry) {}
+    Movie(const std::string &t, const std::string &d, const std::string &g, double p, const std::string &dir, int dur, int year)
+        : LibraryItem(t, d, g, p), director(dir), duration(dur), releaseYear(year) {}
 
-    std::string toString() const override {
-        std::ostringstream oss;
-        oss << LibraryItem::toString() << "\nDirector: " << director << "\nDuration: " << duration << " minutes\nRelease Year: " << releaseYear;
-        return oss.str();
-    }
+    std::string getDirector() const { return director; }
+    int getDuration() const { return duration; }
+    int getReleaseYear() const { return releaseYear; }
 };
 
-// Base class for people
-class Person {
-protected:
-    std::string name;
-    int ID;
-    std::string contactInfo;
-
-public:
-    Person(const std::string &n, int id, const std::string &ci)
-        : name(n), ID(id), contactInfo(ci) {}
-
-    virtual std::string toString() const {
-        std::ostringstream oss;
-        oss << "Name: " << name << "\nID: " << ID << "\nContact Info: " << contactInfo;
-        return oss.str();
-    }
-
-    virtual ~Person() {}
-};
-
-// Derived class for users
-class User : public Person {
-private:
-    std::string membershipLevel;
-
-public:
-    User(const std::string &n, int id, const std::string &ci, const std::string &ml)
-        : Person(n, id, ci), membershipLevel(ml) {}
-
-    std::string toString() const override {
-        std::ostringstream oss;
-        oss << Person::toString() << "\nMembership Level: " << membershipLevel;
-        return oss.str();
-    }
-};
-
-// Derived class for staff
-class Staff : public Person {
-private:
-    std::string position;
-    double salary;
-
-public:
-    Staff(const std::string &n, int id, const std::string &ci, const std::string &pos, double sal)
-        : Person(n, id, ci), position(pos), salary(sal) {}
-
-    std::string toString() const override {
-        std::ostringstream oss;
-        oss << Person::toString() << "\nPosition: " << position << "\nSalary: $" << salary;
-        return oss.str();
-    }
-};
-
-// Library class
 class Library {
 private:
-    std::vector<LibraryItem *> items;
-    std::vector<Person *> users;
+    std::vector<LibraryItem*> items;
+    std::vector<User> users;
+    std::vector<Staff> staff;
 
 public:
-    void addItem(LibraryItem *item) {
+    void addItem(LibraryItem* item) {
         items.push_back(item);
     }
 
-    void addUser(Person *user) {
+    void addUser(const User &user) {
         users.push_back(user);
     }
 
-    std::string listItems() const {
-        std::ostringstream oss;
-        for (const auto &item : items) {
-            oss << item->toString() << "\n\n";
-        }
-        return oss.str();
+    void addStaff(const Staff &staffMember) {
+        staff.push_back(staffMember);
     }
 
-    std::string listUsers() const {
-        std::ostringstream oss;
-        for (const auto &user : users) {
-            oss << user->toString() << "\n\n";
+    LibraryItem* findItem(const std::string &title) {
+        for (auto item : items) {
+            if (item->getTitle() == title) {
+                return item;
+            }
         }
-        return oss.str();
+        return nullptr;
     }
 
-    ~Library() {
-        for (auto &item : items) {
-            delete item;
-        }
+    User* findUser(int userId) {
         for (auto &user : users) {
-            delete user;
+            if (user.getUserId() == userId) {
+                return &user;
+            }
+        }
+        return nullptr;
+    }
+
+    void checkOutItem(const std::string &title, int userId) {
+        LibraryItem* item = findItem(title);
+        if (item && !item->isCheckedOut()) {
+            item->checkOut(userId);
+        }
+    }
+
+    void checkInItem(const std::string &title) {
+        LibraryItem* item = findItem(title);
+        if (item && item->isCheckedOut()) {
+            item->checkIn();
         }
     }
 };
-
-// Main function
 int main() {
-    Library myLibrary;
+    Library library;
 
-    // Add some items
-    Book *book1 = new Book("C++ Programming", "A comprehensive guide", "Programming", 29.99, "1234567890", "Bjarne Stroustrup", "Addison-Wesley");
-    Music *music1 = new Music("The Wall", "Iconic rock album", "Rock", 19.99, "Pink Floyd", "The Wall", 1979);
-    Movie *movie1 = new Movie("Inception", "A mind-bending thriller", "Sci-Fi", 14.99, "Christopher Nolan", 148, 2010);
+    // Add some initial data
+    library.addUser(User("Alice", 1));
+    library.addUser(User("Bob", 2));
+    library.addStaff(Staff("Charlie", 3));
 
-    myLibrary.addItem(book1);
-    myLibrary.addItem(music1);
-    myLibrary.addItem(movie1);
+    library.addItem(new Book("The Great Gatsby", "A novel by F. Scott Fitzgerald", "Fiction", 10.99, "1234567890", "F. Scott Fitzgerald", "Scribner"));
+    library.addItem(new Music("Thriller", "An album by Michael Jackson", "Pop", 9.99, "Michael Jackson", "Thriller", 1982));
+    library.addItem(new Movie("Inception", "A film by Christopher Nolan", "Sci-Fi", 14.99, "Christopher Nolan", 148, 2010));
 
-    // Add some users
-    User *user1 = new User("John Doe", 1, "john.doe@example.com", "Gold");
-    Staff *staff1 = new Staff("Jane Smith", 2, "jane.smith@example.com", "Librarian", 50000);
+    while (true) {
+        std::cout << "Library Menu:\n";
+        std::cout << "1. Check out item\n";
+        std::cout << "2. Check in item\n";
+        std::cout << "3. Add user\n";
+        std::cout << "4. Add staff\n";
+        std::cout << "5. Exit\n";
+        std::cout << "Enter your choice: ";
+        int choice;
+        std::cin >> choice;
 
-    myLibrary.addUser(user1);
-    myLibrary.addUser(staff1);
-
-    // List items and users
-    std::cout << "Library Items:\n" << myLibrary.listItems() << std::endl;
-    std::cout << "Library Users:\n" << myLibrary.listUsers() << std::endl;
+        if (choice == 1) {
+            std::string title;
+            int userId;
+            std::cout << "Enter item title: ";
+            std::cin.ignore();
+            std::getline(std::cin, title);
+            std::cout << "Enter user ID: ";
+            std::cin >> userId;
+            library.checkOutItem(title, userId);
+        } else if (choice == 2) {
+            std::string title;
+            std::cout << "Enter item title: ";
+            std::cin.ignore();
+            std::getline(std::cin, title);
+            library.checkInItem(title);
+        } else if (choice == 3) {
+            std::string name;
+            int userId;
+            std::cout << "Enter user name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Enter user ID: ";
+            std::cin >> userId;
+            library.addUser(User(name, userId));
+        } else if (choice == 4) {
+            std::string name;
+            int userId;
+            std::cout << "Enter staff name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Enter staff ID: ";
+            std::cin >> userId;
+            library.addStaff(Staff(name, userId));
+        } else if (choice == 5) {
+            break;
+        }
+    }
 
     return 0;
 }
