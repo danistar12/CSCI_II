@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <limits>
+
 
 class User {
 private:
@@ -149,6 +151,179 @@ public:
         }
     }
 };
+bool getIntInput(int &input) {
+    std::cin >> input;
+    if (std::cin.fail()) {
+        std::cin.clear(); // Clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+        return false;
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard any extra input
+    return true;
+}
+bool getStringInput(std::string &input) {
+    std::getline(std::cin, input);
+    if (input.empty()) {
+        return false;
+    }
+    return true;
+}
+bool getDoubleInput(double &input) {
+    std::cin >> input;
+    if (std::cin.fail()) {
+        std::cin.clear(); // Clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+        return false;
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard any extra input
+    return true;
+}
+void displayMenu() {
+    std::cout << "Library Menu:\n";
+    std::cout << "1. Check out item\n";
+    std::cout << "2. Check in item\n";
+    std::cout << "3. Add user\n";
+    std::cout << "4. Add staff\n";
+    std::cout << "5. Add book\n";
+    std::cout << "6. Add music\n";
+    std::cout << "7. Add movie\n";
+    std::cout << "8. Exit\n";
+    std::cout << "Enter your choice: ";
+}
+
+void addBook(Library &library) {
+    std::string title, description, genre, isbn, author, publisher;
+    double price;
+
+    std::cout << "Enter book title: ";
+    if (!getStringInput(title)) {
+        std::cout << "Invalid input. Please enter a valid title.\n";
+        return;
+    }
+    std::cout << "Enter book description: ";
+    if (!getStringInput(description)) {
+        std::cout << "Invalid input. Please enter a valid description.\n";
+        return;
+    }
+    std::cout << "Enter book genre: ";
+    if (!getStringInput(genre)) {
+        std::cout << "Invalid input. Please enter a valid genre.\n";
+        return;
+    }
+    std::cout << "Enter book price: ";
+    if (!getDoubleInput(price)) {
+        std::cout << "Invalid input. Please enter a valid price.\n";
+        return;
+    }
+    std::cout << "Enter book ISBN: ";
+    if (!getStringInput(isbn)) {
+        std::cout << "Invalid input. Please enter a valid ISBN.\n";
+        return;
+    }
+    std::cout << "Enter book author: ";
+    if (!getStringInput(author)) {
+        std::cout << "Invalid input. Please enter a valid author.\n";
+        return;
+    }
+    std::cout << "Enter book publisher: ";
+    if (!getStringInput(publisher)) {
+        std::cout << "Invalid input. Please enter a valid publisher.\n";
+        return;
+    }
+
+    library.addItem(new Book(title, description, genre, price, isbn, author, publisher));
+    std::cout << "Book added successfully.\n";
+}
+
+void addMusic(Library &library) {
+    std::string title, description, genre, artist, album;
+    double price;
+    int releaseYear;
+
+    std::cout << "Enter music title: ";
+    if (!getStringInput(title)) {
+        std::cout << "Invalid input. Please enter a valid title.\n";
+        return;
+    }
+    std::cout << "Enter music description: ";
+    if (!getStringInput(description)) {
+        std::cout << "Invalid input. Please enter a valid description.\n";
+        return;
+    }
+    std::cout << "Enter music genre: ";
+    if (!getStringInput(genre)) {
+        std::cout << "Invalid input. Please enter a valid genre.\n";
+        return;
+    }
+    std::cout << "Enter music price: ";
+    if (!getDoubleInput(price)) {
+        std::cout << "Invalid input. Please enter a valid price.\n";
+        return;
+    }
+    std::cout << "Enter music artist: ";
+    if (!getStringInput(artist)) {
+        std::cout << "Invalid input. Please enter a valid artist.\n";
+        return;
+    }
+    std::cout << "Enter music album: ";
+    if (!getStringInput(album)) {
+        std::cout << "Invalid input. Please enter a valid album.\n";
+        return;
+    }
+    std::cout << "Enter music release year: ";
+    if (!getIntInput(releaseYear)) {
+        std::cout << "Invalid input. Please enter a valid year.\n";
+        return;
+    }
+
+    library.addItem(new Music(title, description, genre, price, artist, album, releaseYear));
+    std::cout << "Music added successfully.\n";
+}
+
+void addMovie(Library &library) {
+    std::string title, description, genre, director;
+    double price;
+    int duration, releaseYear;
+
+    std::cout << "Enter movie title: ";
+    if (!getStringInput(title)) {
+        std::cout << "Invalid input. Please enter a valid title.\n";
+        return;
+    }
+    std::cout << "Enter movie description: ";
+    if (!getStringInput(description)) {
+        std::cout << "Invalid input. Please enter a valid description.\n";
+        return;
+    }
+    std::cout << "Enter movie genre: ";
+    if (!getStringInput(genre)) {
+        std::cout << "Invalid input. Please enter a valid genre.\n";
+        return;
+    }
+    std::cout << "Enter movie price: ";
+    if (!getDoubleInput(price)) {
+        std::cout << "Invalid input. Please enter a valid price.\n";
+        return;
+    }
+    std::cout << "Enter movie director: ";
+    if (!getStringInput(director)) {
+        std::cout << "Invalid input. Please enter a valid director.\n";
+        return;
+    }
+    std::cout << "Enter movie duration (in minutes): ";
+    if (!getIntInput(duration)) {
+        std::cout << "Invalid input. Please enter a valid duration.\n";
+        return;
+    }
+    std::cout << "Enter movie release year: ";
+    if (!getIntInput(releaseYear)) {
+        std::cout << "Invalid input. Please enter a valid year.\n";
+        return;
+    }
+
+    library.addItem(new Movie(title, description, genre, price, director, duration, releaseYear));
+    std::cout << "Movie added successfully.\n";
+}
 int main() {
     Library library;
 
@@ -161,52 +336,74 @@ int main() {
     library.addItem(new Music("Thriller", "An album by Michael Jackson", "Pop", 9.99, "Michael Jackson", "Thriller", 1982));
     library.addItem(new Movie("Inception", "A film by Christopher Nolan", "Sci-Fi", 14.99, "Christopher Nolan", 148, 2010));
 
-    while (true) {
-        std::cout << "Library Menu:\n";
-        std::cout << "1. Check out item\n";
-        std::cout << "2. Check in item\n";
-        std::cout << "3. Add user\n";
-        std::cout << "4. Add staff\n";
-        std::cout << "5. Exit\n";
-        std::cout << "Enter your choice: ";
+        while (true) {
+        displayMenu();
         int choice;
-        std::cin >> choice;
+        if (!getIntInput(choice)) {
+            std::cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
 
         if (choice == 1) {
             std::string title;
             int userId;
             std::cout << "Enter item title: ";
-            std::cin.ignore();
-            std::getline(std::cin, title);
+            if (!getStringInput(title)) {
+                std::cout << "Invalid input. Please enter a valid title.\n";
+                continue;
+            }
             std::cout << "Enter user ID: ";
-            std::cin >> userId;
+            if (!getIntInput(userId)) {
+                std::cout << "Invalid input. Please enter a number.\n";
+                continue;
+            }
             library.checkOutItem(title, userId);
         } else if (choice == 2) {
             std::string title;
             std::cout << "Enter item title: ";
-            std::cin.ignore();
-            std::getline(std::cin, title);
+            if (!getStringInput(title)) {
+                std::cout << "Invalid input. Please enter a valid title.\n";
+                continue;
+            }
             library.checkInItem(title);
         } else if (choice == 3) {
             std::string name;
             int userId;
             std::cout << "Enter user name: ";
-            std::cin.ignore();
-            std::getline(std::cin, name);
+            if (!getStringInput(name)) {
+                std::cout << "Invalid input. Please enter a valid name.\n";
+                continue;
+            }
             std::cout << "Enter user ID: ";
-            std::cin >> userId;
+            if (!getIntInput(userId)) {
+                std::cout << "Invalid input. Please enter a number.\n";
+                continue;
+            }
             library.addUser(User(name, userId));
         } else if (choice == 4) {
             std::string name;
             int userId;
             std::cout << "Enter staff name: ";
-            std::cin.ignore();
-            std::getline(std::cin, name);
+            if (!getStringInput(name)) {
+                std::cout << "Invalid input. Please enter a valid name.\n";
+                continue;
+            }
             std::cout << "Enter staff ID: ";
-            std::cin >> userId;
+            if (!getIntInput(userId)) {
+                std::cout << "Invalid input. Please enter a number.\n";
+                continue;
+            }
             library.addStaff(Staff(name, userId));
         } else if (choice == 5) {
+            addBook(library);
+        } else if (choice == 6) {
+            addMusic(library);
+        } else if (choice == 7) {
+            addMovie(library);
+        } else if (choice == 8) {
             break;
+        } else {
+            std::cout << "Invalid choice. Please enter a number between 1 and 8.\n";
         }
     }
 
