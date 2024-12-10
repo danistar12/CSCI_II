@@ -1,10 +1,17 @@
+/////////////////////////////////////////////////////////////
+//#  Program name: Basic_Library.cpp                      //
+//#  Author: Danielle Lloyd                              //
+//#  Date last updated: 12/12/2024                      // 
+//#  Purpose: This is a basic Library Console Application//
+////////////////////////////////////////////////////////
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <limits>
 
-
+//Tis will constitute as both user and staff
 class User {
 private:
     std::string name;
@@ -21,6 +28,7 @@ class Staff : public User {
 public:
     Staff(const std::string &n, int id) : User(n, id) {}
 };
+//Library item is the base class for all the items in the library
 class LibraryItem {
 private:
     std::string title;
@@ -55,6 +63,7 @@ public:
         }
     }
 };
+//Book class is derived from the library item class
 class Book : public LibraryItem {
 private:
     std::string isbn;
@@ -69,7 +78,7 @@ public:
     std::string getAuthor() const { return author; }
     std::string getPublisher() const { return publisher; }
 };
-
+//Music class is derived from the library item class
 class Music : public LibraryItem {
 private:
     std::string artist;
@@ -84,12 +93,12 @@ public:
     std::string getAlbum() const { return album; }
     int getReleaseYear() const { return releaseYear; }
 };
-
+//Movie class is derived from the library item class
 class Movie : public LibraryItem {
 private:
     std::string director;
     int duration; // in minutes
-    int releaseYear;
+    int releaseYear;   
 
 public:
     Movie(const std::string &t, const std::string &d, const std::string &g, double p, const std::string &dir, int dur, int year)
@@ -99,7 +108,7 @@ public:
     int getDuration() const { return duration; }
     int getReleaseYear() const { return releaseYear; }
 };
-
+//Library class is the main class which will have all the items, users and staff
 class Library {
 private:
     std::vector<LibraryItem*> items;
@@ -151,6 +160,7 @@ public:
         }
     }
 };
+//Functions to get the input from the user//error handling
 bool getIntInput(int &input) {
     std::cin >> input;
     if (std::cin.fail()) {
@@ -178,6 +188,7 @@ bool getDoubleInput(double &input) {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard any extra input
     return true;
 }
+//Display menu function
 void displayMenu() {
     std::cout << "Library Menu:\n";
     std::cout << "1. Check out item\n";
@@ -190,7 +201,7 @@ void displayMenu() {
     std::cout << "8. Exit\n";
     std::cout << "Enter your choice: ";
 }
-
+//Add book information function
 void addBook(Library &library) {
     std::string title, description, genre, isbn, author, publisher;
     double price;
@@ -234,7 +245,7 @@ void addBook(Library &library) {
     library.addItem(new Book(title, description, genre, price, isbn, author, publisher));
     std::cout << "Book added successfully.\n";
 }
-
+//Add music information function
 void addMusic(Library &library) {
     std::string title, description, genre, artist, album;
     double price;
@@ -279,7 +290,7 @@ void addMusic(Library &library) {
     library.addItem(new Music(title, description, genre, price, artist, album, releaseYear));
     std::cout << "Music added successfully.\n";
 }
-
+//Add movie information function
 void addMovie(Library &library) {
     std::string title, description, genre, director;
     double price;
@@ -324,6 +335,7 @@ void addMovie(Library &library) {
     library.addItem(new Movie(title, description, genre, price, director, duration, releaseYear));
     std::cout << "Movie added successfully.\n";
 }
+//main function
 int main() {
     Library library;
 
@@ -331,11 +343,11 @@ int main() {
     library.addUser(User("Alice", 1));
     library.addUser(User("Bob", 2));
     library.addStaff(Staff("Charlie", 3));
-
+    //Adding some items to the library
     library.addItem(new Book("The Great Gatsby", "A novel by F. Scott Fitzgerald", "Fiction", 10.99, "1234567890", "F. Scott Fitzgerald", "Scribner"));
     library.addItem(new Music("Thriller", "An album by Michael Jackson", "Pop", 9.99, "Michael Jackson", "Thriller", 1982));
     library.addItem(new Movie("Inception", "A film by Christopher Nolan", "Sci-Fi", 14.99, "Christopher Nolan", 148, 2010));
-
+        //Menu to display the options
         while (true) {
         displayMenu();
         int choice;
@@ -343,7 +355,7 @@ int main() {
             std::cout << "Invalid input. Please enter a number.\n";
             continue;
         }
-
+        //Switch case to handle the user input
         if (choice == 1) {
             std::string title;
             int userId;
@@ -403,7 +415,7 @@ int main() {
         } else if (choice == 8) {
             break;
         } else {
-            std::cout << "Invalid choice. Please enter a number between 1 and 8.\n";
+            std::cout << "Invalid choice. Please enter a number between 1 and 8.\n"; //Error handling
         }
     }
 
