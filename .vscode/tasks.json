@@ -4,18 +4,24 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "C:/MinGW/bin/g++.exe",
+            "command": "cl.exe",
             "args": [
                 "-g",
-                "${file}",
+                "${workspaceFolder}/Facts.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}/Facts",
+                "-I",
+                "C:/sqlite", // Path to the directory containing sqlite3.h
+                "-L",
+                "C:/sqlite", // Path to the directory containing sqlite3.lib or sqlite3.dll
+                "-lsqlite3"  // Link with the SQLite library
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task by Debugger."
         }
     ]
 }
