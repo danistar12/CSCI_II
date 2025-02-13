@@ -4,16 +4,16 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "cl.exe",
+            "command": "g++",
             "args": [
                 "-g",
-                "${workspaceFolder}/Facts.cpp",
+                "${workspaceFolder}/SaleCo.cpp",
                 "-o",
-                "${workspaceFolder}/Facts",
+                "${workspaceFolder}/SaleCo.exe",
                 "-I",
                 "C:/sqlite", // Path to the directory containing sqlite3.h
                 "-L",
-                "C:/sqlite", // Path to the directory containing sqlite3.lib or sqlite3.dll
+                "C:/sqlite", // Path to the directory containing sqlite3.dll
                 "-lsqlite3"  // Link with the SQLite library
             ],
             "group": {

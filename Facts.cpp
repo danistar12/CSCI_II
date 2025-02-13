@@ -37,7 +37,7 @@ int main() {
     }
 
     // Execute a select query and use the callback function to print the results
-    const char* sql = "SELECT * FROM facts;";
+    const char* sql = "SELECT * FROM book;";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
     if (rc != SQLITE_OK) {
