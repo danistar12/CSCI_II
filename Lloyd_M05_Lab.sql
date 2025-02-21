@@ -15,7 +15,7 @@ CREATE TABLE AGENT (
 --Create SERVICE table
 CREATE TABLE SERVICE (
     service_id INT PRIMARY KEY,
-    service_name VARCHAR(100),
+    service_name VARCHAR(100)
 );
 
 -- Create SUBSCRIPTION table
@@ -29,6 +29,15 @@ CREATE TABLE SUBSCRIPTION (
     FOREIGN KEY (service_id) REFERENCES SERVICE(service_id),
     FOREIGN KEY (cust_id) REFERENCES CUSTOMER(cust_id),
     FOREIGN KEY (agent_id) REFERENCES AGENT(agent_id)
+);
+CREATE Table Transaction (
+    transaction_id INT PRIMARY KEY,
+    subscription_id INT,
+    cust_id INT,
+    transaction_date DATE,
+    amount DECIMAL(10,2),
+    FOREIGN KEY (subscription_id) REFERENCES SUBSCRIPTION(subscription_id),
+    FOREIGN KEY (cust_id) REFERENCES CUSTOMER(cust_id)
 );
 
 -- Insert records into the SERVICE table
@@ -55,3 +64,6 @@ INSERT INTO AGENT (agent_id, first_name, last_name, department) VALUES
 ('SA1003', 'Steph', 'Andrews', 'Sales'),
 ('AH1004', 'Alexis', 'Hazel', 'IT'),
 ('PD1005', 'Pete', 'Davidson', 'IT');
+
+INSERT INTO CUSTOMER (cust_id, first_name, last_name, email)
+VALUES (1589, 'Alice', 'Johnson', 'alice.johnson@example.com');
