@@ -1,5 +1,8 @@
 {
     "files.associations": {
+        "*.sqlbook": "sql",
+        "*.ndjson": "jsonl",
+        "*.dbclient-js": "javascript",
         "algorithm": "cpp",
         "functional": "cpp",
         "optional": "cpp",
@@ -63,7 +66,8 @@
         "xloctime": "cpp",
         "xmemory": "cpp",
         "xtree": "cpp",
-        "xstddef": "cpp"
+        "xstddef": "cpp",
+        "iomanip": "cpp"
     },
     "terminal.integrated.allowMnemonics": false
 }
