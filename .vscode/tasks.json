@@ -7,9 +7,9 @@
             "command": "g++",
             "args": [
                 "-g",
-                "${workspaceFolder}/SaleCo.cpp",
+                "${workspaceFolder}/NBA.cpp",
                 "-o",
-                "${workspaceFolder}/SaleCo.exe",
+                "${workspaceFolder}/nba.exe",
                 "-I",
                 "C:/sqlite", // Path to the directory containing sqlite3.h
                 "-L",
