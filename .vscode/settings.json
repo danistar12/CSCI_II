@@ -69,5 +69,6 @@
         "xstddef": "cpp",
         "iomanip": "cpp"
     },
-    "terminal.integrated.allowMnemonics": false
+    "terminal.integrated.allowMnemonics": false,
+    "C_Cpp.default.compilerPath": "C:/MinGW/bin/g++.exe"
 }

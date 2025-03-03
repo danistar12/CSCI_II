@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/sqlite" // Path to the directory containing sqlite3.h
+                "C:/sqlite"
             ],
             "defines": [
                 "_DEBUG",
@@ -12,7 +12,7 @@
                 "_UNICODE"
             ],
             "windowsSdkVersion": "10.0.22621.0",
-            "compilerPath": "C:/MinGW/bin/g++.exe", // Ensure this path points to your g++ compiler
+            "compilerPath": "C:/MinGW/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64"
